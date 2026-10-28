@@ -24,29 +24,37 @@ int main()
     {
         int n;
         cin >> n;
-        vector<pair<int,int>> fi(n);
-        ll ans =0;
-        for(int i=0;i<n;i++){
+
+        long long sumSecond = 0;
+        long long minFirst = LLONG_MAX;
+        long long minSecond = LLONG_MAX;
+
+        for (int i = 0; i < n; i++) {
             int m;
-            cin >>m;
-            vector<int> a(m);
-            for(int j=0;j< m;j++){
-                cin >> a[j];
+            cin >> m;
+
+            long long first = LLONG_MAX;
+            long long second = LLONG_MAX;
+
+            for (int j = 0; j < m; j++) {
+                long long x;
+                cin >> x;
+
+                if (x < first) {
+                    second = first;
+                    first = x;
+                } else if (x < second) {
+                    second = x;
+                }
             }
-            sort(a.begin(), a.end());
-            fi[i]= {a[0],a[1]};
-           
-        }
-        sort(fi.begin(),fi.end());
-        for(int i=0;i<n ;i++){
-             if(i)ans+= fi[i].second;
-            else ans+=  fi[i].first;
-        }
-        cout<<ans<<nl;
 
-        
+            minFirst = min(minFirst, first);
+            minSecond = min(minSecond, second);
+            sumSecond += second;
+        }
 
-        
+        cout << sumSecond - minSecond + minFirst << '\n';
+    
     }
 
     return 0;
